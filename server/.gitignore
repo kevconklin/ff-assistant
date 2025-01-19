@@ -139,9 +139,6 @@ ff/
 # Rope project settings
 .ropeproject
 
-# Ignore CSV
-*.csv
-
 # mkdocs documentation
 /site
 
