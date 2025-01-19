@@ -129,6 +129,8 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+ff/
+.ff
 
 # Spyder project settings
 .spyderproject
@@ -136,6 +138,9 @@ venv.bak/
 
 # Rope project settings
 .ropeproject
+
+# Ignore CSV
+*.csv
 
 # mkdocs documentation
 /site

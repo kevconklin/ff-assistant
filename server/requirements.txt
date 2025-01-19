@@ -1,0 +1,4 @@
+llama-index-core==0.12.7
+llama-index-experimental==0.5.2
+llama-index-llms-openai==0.3.12
+python-dotenv==1.0.1
