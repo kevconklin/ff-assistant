@@ -1,2 +1,2 @@
-GET_DATA_ENDPOINT="http://localhost:8000/get_data"
-CHAT_ENDPOINT="http://localhost:8000/ask_agent"
+export const GET_DATA_ENDPOINT="/data/all_data.json"
+// export const CHAT_ENDPOINT=" https://beechf-fantasy.com/api/ask_agent" // Disabled for static deployment

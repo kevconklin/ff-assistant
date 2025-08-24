@@ -11,7 +11,7 @@ app = FastAPI()
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Replace "*" with a specific domain for production (e.g., "http://localhost:3000")
+    allow_origins=['https://beechf-fantasy.com'],  # Replace "*" with a specific domain for production (e.g., "http://localhost:3000")
     allow_credentials=True,
     allow_methods=["*"],  # Allow all HTTP methods (GET, POST, etc.)
     allow_headers=["*"],  # Allow all headers
