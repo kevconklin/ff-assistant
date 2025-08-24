@@ -10,7 +10,7 @@ import CardRow from "./components/frontPage/CardRow";
 function App() {
     return (
         <DataProvider>
-            <Router>
+            <Router basename={process.env.PUBLIC_URL}>
                 <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
                     <CustomNavbar />
                     <FetchData/>

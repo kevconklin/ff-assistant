@@ -42,8 +42,8 @@ jobs:
     - name: Build app
       run: npm run build
       env:
-        # Tell React to build for production - using root path for custom domain
-        PUBLIC_URL: /
+        # Tell React to build for production - using relative paths for custom domain
+        PUBLIC_URL: ./
         
     - name: Setup Pages
       uses: actions/configure-pages@v5
