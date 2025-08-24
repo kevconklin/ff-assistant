@@ -6,7 +6,6 @@ import LeagueStats from "./components/leagueStats/LeagueStats";
 import { DataProvider } from "./DataContext"; // Import your DataContext
 import FetchData from "./FetchData";
 import CardRow from "./components/frontPage/CardRow";
-import ChatBot from "./components/chatBot/ChatBot"
 
 function App() {
     return (

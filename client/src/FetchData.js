@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import { useDataContext } from "./DataContext";
 import { GET_DATA_ENDPOINT } from "./apiEndpoints" 
