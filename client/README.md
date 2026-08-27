@@ -68,3 +68,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+1. Create a TXT record in your DNS configuration for the following hostname: _github-pages-challenge-kevconklin.beechf-fantasy.com
+2. Use this code for the value of the TXT record: 85457d30b2f5155f270e20c0317a90
+3. Wait until your DNS configuration changes. This could take up to 24 hours to propagate.
