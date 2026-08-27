@@ -9,7 +9,7 @@ load_dotenv()
 # Replace with your league ID and season year
 league_id = 400776
 
-season_years = [year for year in range(2009, 2025)]
+season_years = [year for year in range(2009, 2026)]
 
 # Replace with your SWID and espn_s2 values
 swid = os.getenv('SWID')
