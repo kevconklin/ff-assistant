@@ -40,10 +40,9 @@ jobs:
       run: npm ci
       
     - name: Build app
+      # PUBLIC_URL comes from "homepage" in client/package.json
+      # (https://chadhines.app — the site serves at the domain root)
       run: npm run build
-      env:
-        # Tell React to build for production with GitHub Pages subdirectory
-        PUBLIC_URL: /ff-assistant
         
     - name: Setup Pages
       uses: actions/configure-pages@v5

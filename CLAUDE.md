@@ -42,15 +42,15 @@ The client does **not** call the backend. `client/src/apiEndpoints.js` points `G
 
 Data flow in the client: `FetchData.js` fetches `all_data.json` once at mount and stores it in a global React context (`DataContext.js`). All page components read `{ matchups, standings }` from `useDataContext()` — there is no other data fetching. Pages: `components/frontPage/` (stat cards), `components/leagueStats/`, `components/teamStats/`.
 
-### Deployment: GitHub Pages subdirectory
+### Deployment: GitHub Pages + custom domain
 
-The site deploys to GitHub Pages under the `/ff-assistant` subpath. Three things must stay in sync — breaking any of them breaks routing or data loading:
+The site deploys to GitHub Pages at **https://chadhines.app** (custom domain, site served at the domain root). The pieces that must stay in sync:
 
-- `homepage: "/ff-assistant"` in `client/package.json`
-- `<Router basename="/ff-assistant">` in `client/src/App.js`
-- `PUBLIC_URL: /ff-assistant` set in `.github/workflows/deploy.yml`
+- `homepage: "https://chadhines.app"` in `client/package.json` — CRA derives `PUBLIC_URL` from this (the workflow sets no PUBLIC_URL override)
+- `<Router>` in `client/src/App.js` has **no basename** — the app lives at the root
+- The custom domain is set in the repo's GitHub Pages settings (API `cname` field), and DNS (four `185.199.x.153` A records + `www` CNAME) is managed in Vercel DNS, where the domain is registered
 
-The workflow builds and deploys on push to `main` (and `feature/refactor`). Docker/nginx files in `client/` and `server/` are from an earlier self-hosted setup and are not part of the Pages deployment.
+The workflow builds and deploys on push to `main` (and `feature/refactor`). `kevconklin.github.io/ff-assistant` redirects to the custom domain. Docker/nginx files in `client/` and `server/` are from an earlier self-hosted setup and are not part of the Pages deployment.
 
 ### Data pipeline (updating league data)
 
