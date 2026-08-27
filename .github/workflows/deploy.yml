@@ -43,6 +43,11 @@ jobs:
       # PUBLIC_URL comes from "homepage" in client/package.json
       # (https://chadhines.app — the site serves at the domain root)
       run: npm run build
+
+    - name: SPA fallback
+      # GitHub Pages serves 404.html for unknown paths; making it the app
+      # lets client-side routes like /team-stats load on direct visits
+      run: cp build/index.html build/404.html
         
     - name: Setup Pages
       uses: actions/configure-pages@v5
