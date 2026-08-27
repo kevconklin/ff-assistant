@@ -26,23 +26,6 @@ const TeamStandingsCard = ({ standings, selectedTeam }) => {
 
     return (
         <div className="card">
-            <div className="border-b border-gray-200 dark:border-gray-700 px-6 py-4">
-                <div className="flex items-center justify-between">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                        {selectedTeam ? `${selectedTeam} Performance Chart` : 'Team Performance Chart'}
-                    </h3>
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900/20 dark:text-indigo-400">
-                        <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 00-2-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                        </svg>
-                        Analytics
-                    </span>
-                </div>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                    Points scored/allowed and win-loss record across all seasons
-                </p>
-            </div>
-            
             <div className="p-6">
                 {selectedTeam ? (
                     <div className="bg-white dark:bg-gray-900 rounded-lg">
@@ -98,9 +81,9 @@ const TeamStandingsCard = ({ standings, selectedTeam }) => {
                                     yAxisId="left"
                                     type="monotone"
                                     dataKey="pointsFor"
-                                    stroke="#10b981"
+                                    stroke="#1B6A52"
                                     strokeWidth={3}
-                                    dot={{ fill: '#10b981', strokeWidth: 2, r: 4 }}
+                                    dot={{ fill: '#1B6A52', strokeWidth: 2, r: 4 }}
                                     name="Points For"
                                 />
                                 <Line
@@ -117,7 +100,7 @@ const TeamStandingsCard = ({ standings, selectedTeam }) => {
                                 <Bar
                                     yAxisId="right"
                                     dataKey="wins"
-                                    fill="#3b82f6"
+                                    fill="#1B6A52"
                                     name="Wins"
                                     barSize={30}
                                     radius={[2, 2, 0, 0]}
@@ -125,7 +108,7 @@ const TeamStandingsCard = ({ standings, selectedTeam }) => {
                                 <Bar
                                     yAxisId="right"
                                     dataKey="losses"
-                                    fill="#f59e0b"
+                                    fill="#D9A441"
                                     name="Losses"
                                     barSize={30}
                                     radius={[2, 2, 0, 0]}

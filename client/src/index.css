@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -37,5 +37,24 @@
 
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+
+  /* Chalked yard line: a hairline with field tick marks, used under the sidebar wordmark */
+  .yard-line {
+    height: 7px;
+    background-image:
+      linear-gradient(to bottom, transparent 5px, rgba(242, 239, 230, 0.55) 5px),
+      repeating-linear-gradient(
+        to right,
+        rgba(242, 239, 230, 0.55) 0 1.5px,
+        transparent 1.5px 11px
+      );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }

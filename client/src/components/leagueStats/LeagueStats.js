@@ -1,6 +1,7 @@
 import React from "react";
 import YearRangeAggregator from "./YearRangeAggregator";
 import StandingsTable from "./StandingsTable";
+import { PageHeader, SectionHeader } from "../layout/PageChrome";
 import { useDataContext } from "../../DataContext";
 
 const LeagueStats = () => {
@@ -23,29 +24,21 @@ const LeagueStats = () => {
     
     return (
         <div className="max-w-7xl mx-auto">
-            {/* Header Section */}
-            <div className="mb-8">
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                    📊 League Statistics Analysis
-                </h1>
-                <p className="text-gray-600 dark:text-gray-300">
-                    Detailed performance analytics across seasons with historical comparisons and rankings
-                </p>
-            </div>
+            <PageHeader
+                eyebrow="Across the seasons"
+                title="League Stats"
+                subtitle="Compare any stretch of seasons, then drill into a single year's standings."
+            />
 
             {/* Multi-Season Analysis */}
             <div className="mb-8">
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                    📈 Historical Performance Analysis
-                </h2>
+                <SectionHeader title="Historical Performance" />
                 <YearRangeAggregator />
             </div>
 
             {/* Single Season View */}
             <div className="mb-8">
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                    🏆 Season-by-Season Breakdown
-                </h2>
+                <SectionHeader title="Season by Season" />
                 <StandingsTable />
             </div>
         </div>
