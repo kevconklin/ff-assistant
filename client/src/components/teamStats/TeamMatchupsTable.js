@@ -35,20 +35,23 @@ const TeamMatchupsTable = ({ matchups, selectedTeam }) => {
                 opponent,
                 wins: 0,
                 losses: 0,
+                ties: 0,
                 totalWinMargin: 0,
                 totalLossMargin: 0,
                 games: 0,
             };
         }
 
-        const isWin = matchup.winner === selectedTeam;
-
-        if (isWin) {
+        // winner is null when the game ended level on starter points — count
+        // it as a tie, not a loss
+        if (matchup.winner === selectedTeam) {
             acc[opponent].wins += 1;
             acc[opponent].totalWinMargin += Math.abs(matchup.point_difference);
-        } else {
+        } else if (matchup.loser === selectedTeam) {
             acc[opponent].losses += 1;
             acc[opponent].totalLossMargin += Math.abs(matchup.point_difference);
+        } else {
+            acc[opponent].ties += 1;
         }
 
         acc[opponent].games += 1;
@@ -61,6 +64,7 @@ const TeamMatchupsTable = ({ matchups, selectedTeam }) => {
         opponent: opponent.opponent,
         wins: opponent.wins,
         losses: opponent.losses,
+        ties: opponent.ties,
         games: opponent.games,
         avgWinMargin: opponent.wins > 0 ? (opponent.totalWinMargin / opponent.wins).toFixed(2) : "N/A",
         avgLossMargin: opponent.losses > 0 ? (opponent.totalLossMargin / opponent.losses).toFixed(2) : "N/A",
@@ -140,6 +144,7 @@ const TeamMatchupsTable = ({ matchups, selectedTeam }) => {
                                                 {row.games}
                                                 <span className="block text-xs text-gray-500 dark:text-gray-400">
                                                     {winPercentage}% win rate
+                                                    {row.ties > 0 && ` · ${row.ties} tie${row.ties > 1 ? "s" : ""}`}
                                                 </span>
                                             </td>
                                             <td className={`${tdRight} ${

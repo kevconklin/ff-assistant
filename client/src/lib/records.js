@@ -44,7 +44,8 @@ const singleGameHighs = (matchups) => ({
 const biggestBlowouts = (matchups) => ({
     title: "Biggest blowout",
     note: "Largest margin of victory in one game",
-    rows: [...matchups]
+    rows: matchups
+        .filter((m) => m.winner)
         .sort((a, b) => b.point_difference - a.point_difference)
         .slice(0, 5)
         .map((m) => ({
@@ -103,19 +104,42 @@ const bestSeasonWinRate = (standings) => ({
         .map((r) => ({ name: r.name, value: `${r.pct.toFixed(1)}%`, detail: `${r.season} season` })),
 });
 
-const longestWinStreaks = (standings) => ({
-    title: "Longest win streak",
-    note: "Consecutive wins in a single season",
-    rows: standings
-        .map((t) => ({
-            name: t.displayName,
-            streak: t.streak_type === "WIN" ? t.streak_length : 0,
-            season: t.season,
-        }))
-        .sort((a, b) => b.streak - a.streak)
-        .slice(0, 5)
-        .map((r) => ({ name: r.name, value: `${r.streak} wins`, detail: `${r.season} season` })),
-});
+// True longest run of consecutive wins within one season, walked from the
+// games in week order. (ESPN's streak_length field only holds the streak a
+// team ENDED the season on, which understates real streaks.) A game with no
+// recorded winner (a tie) ends a streak.
+export const longestSeasonStreak = (matchups, name, season) => {
+    let cur = 0;
+    let max = 0;
+    matchups
+        .filter(
+            (m) =>
+                m.season === season &&
+                (m.home_owner_displayName === name || m.away_owner_displayName === name)
+        )
+        .sort((a, b) => a.week - b.week)
+        .forEach((m) => {
+            cur = m.winner === name ? cur + 1 : 0;
+            if (cur > max) max = cur;
+        });
+    return max;
+};
+
+const longestWinStreaks = (standings, matchups) => {
+    const teamSeasons = standings.map((t) => ({
+        name: t.displayName,
+        season: t.season,
+        streak: longestSeasonStreak(matchups, t.displayName, t.season),
+    }));
+    return {
+        title: "Longest win streak",
+        note: "Consecutive wins in a single season",
+        rows: teamSeasons
+            .sort((a, b) => b.streak - a.streak)
+            .slice(0, 5)
+            .map((r) => ({ name: r.name, value: `${r.streak} wins`, detail: `${r.season} season` })),
+    };
+};
 
 const playoffAppearances = (standings) => {
     const counts = standings.reduce((acc, t) => {
@@ -185,7 +209,7 @@ export const computeRecordGroups = (data) => {
                 championshipLeaders(standings),
                 careerWinRate(standings),
                 bestSeasonWinRate(standings),
-                longestWinStreaks(standings),
+                longestWinStreaks(standings, matchups),
                 playoffAppearances(standings),
             ],
         },

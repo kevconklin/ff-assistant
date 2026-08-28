@@ -12,7 +12,10 @@ const TeamHero = ({ profile }) => {
     if (!profile) return null;
 
     const vitals = [
-        { label: "Career record", value: `${profile.wins}–${profile.losses}` },
+        {
+            label: "Career record",
+            value: `${profile.wins}–${profile.losses}${profile.ties > 0 ? `–${profile.ties}` : ""}`,
+        },
         { label: "Win rate", value: `${profile.winPct.toFixed(1)}%` },
         { label: "Best finish", value: ord(profile.bestFinish) },
         { label: "Playoff seasons", value: `${profile.playoffYears}` },

@@ -1,5 +1,7 @@
 // Per-team career computations for the Team Stats page.
 
+import { longestSeasonStreak } from "./records";
+
 const playoffCutoff = 6; // final_standing <= 6 counts as a playoff berth
 
 export const computeTeamProfile = (standings, matchups, name) => {
@@ -20,11 +22,13 @@ export const computeTeamProfile = (standings, matchups, name) => {
     const playoffYears = seasons.filter((t) => t.final_standing <= playoffCutoff).length;
     const bestFinish = Math.min(...seasons.map((t) => t.final_standing));
 
+    // True longest in-season run, from the games — not ESPN's end-of-season
+    // streak field, which understates mid-season streaks.
     const longestStreak = seasons.reduce(
-        (max, t) =>
-            t.streak_type === "WIN" && t.streak_length > max.streak
-                ? { streak: t.streak_length, season: t.season }
-                : max,
+        (max, t) => {
+            const streak = longestSeasonStreak(matchups, name, t.season);
+            return streak > max.streak ? { streak, season: t.season } : max;
+        },
         { streak: 0, season: null }
     );
 

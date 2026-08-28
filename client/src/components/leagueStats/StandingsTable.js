@@ -102,9 +102,10 @@ const StandingsTable = () => {
                                             </td>
                                             <td className={tdRight}>
                                                 {team.wins}–{team.losses}
+                                                {team.ties > 0 && `–${team.ties}`}
                                             </td>
                                             <td className={tdRight}>
-                                                {((team.wins / (team.wins + team.losses)) * 100).toFixed(1)}%
+                                                {((team.wins / (team.wins + team.losses + team.ties)) * 100).toFixed(1)}%
                                             </td>
                                             <td className={tdRight}>
                                                 {Math.round(team.points_for).toLocaleString()}

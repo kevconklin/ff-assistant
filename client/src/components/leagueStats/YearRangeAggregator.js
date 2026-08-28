@@ -59,6 +59,7 @@ const YearRangeAggregator = () => {
                 totalChampionships: 0,
                 totalWins: 0,
                 totalLosses: 0,
+                totalTies: 0,
                 count: 0,
             };
         }
@@ -69,6 +70,7 @@ const YearRangeAggregator = () => {
         acc[team.displayName].totalChampionships += team.champion ? 1 : 0;
         acc[team.displayName].totalWins += team.wins;
         acc[team.displayName].totalLosses += team.losses;
+        acc[team.displayName].totalTies += team.ties;
         acc[team.displayName].count += 1;
 
         return acc;
@@ -80,7 +82,7 @@ const YearRangeAggregator = () => {
         averagePointsFor: team.count ? (team.totalPointsFor / team.count).toFixed(1) : 0,
         averagePointsAgainst: team.count ? (team.totalPointsAgainst / team.count).toFixed(1) : 0,
         averageRanking: team.count ? (team.totalRanking / team.count).toFixed(1) : 0,
-        winPercentage: team.count ? ((team.totalWins / (team.totalWins + team.totalLosses)) * 100).toFixed(1) : 0,
+        winPercentage: team.count ? ((team.totalWins / (team.totalWins + team.totalLosses + team.totalTies)) * 100).toFixed(1) : 0,
         pointDifferential: team.totalPointsFor - team.totalPointsAgainst
     }));
 
@@ -203,6 +205,7 @@ const YearRangeAggregator = () => {
                                     </td>
                                     <td className={tdRight}>
                                         {team.totalWins}–{team.totalLosses}
+                                        {team.totalTies > 0 && `–${team.totalTies}`}
                                     </td>
                                     <td className={tdRight}>{team.winPercentage}%</td>
                                     <td className={tdRight}>{team.averageRanking}</td>

@@ -70,25 +70,15 @@ Notes:
 
 ## 4. Merge into all_data.json
 
-The merge step lives in the notebook `server/Untitled1.ipynb`. Either run that notebook top to bottom, or run this equivalent snippet from `server/`:
+From `server/`:
 
-```python
-import pandas as pd, json
-
-df_matchups = pd.read_csv("data/matchups/matchups_all.csv", index_col=False).drop("Unnamed: 0", axis=1).dropna()
-matchups_data = df_matchups.to_dict(orient="records")
-json.dump(matchups_data, open("data/matchups/matchups_all.json", "w", encoding="utf-8"), ensure_ascii=False, indent=4)
-
-df_standings = pd.read_csv("data/standings/standings_all.csv", index_col=False).drop("Unnamed: 0", axis=1)
-del df_standings["logo_url"]
-standings_data = df_standings.to_dict(orient="records")
-json.dump(standings_data, open("data/standings/standings_all.json", "w", encoding="utf-8"), ensure_ascii=False, indent=4)
-
-all_data = {"matchups": matchups_data, "standings": standings_data}
-json.dump(all_data, open("data/all_data.json", "w", encoding="utf-8"), ensure_ascii=False, indent=4)
+```bash
+python merge_data.py
 ```
 
-Only `matchups` and `standings` go into `all_data.json` — teams data is scraped but not currently used by the site.
+This drops bye rows but **keeps tie games** (equal starter scores; `winner`/`loser` are null). Do not use a blanket `dropna()` — the old notebook merge did, and it silently deleted 14 real games. Note that in modern seasons ESPN breaks regular-season ties with a tiebreaker, so a null-winner game may have an official winner that only the standings reflect; the client treats null-winner games as ties in head-to-head views.
+
+Only `matchups` and `standings` go into `all_data.json` — teams data is scraped but not currently used by the site. (`Untitled1.ipynb` is the retired notebook version of this step.)
 
 ## 5. Copy into the client
 
